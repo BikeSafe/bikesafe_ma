@@ -5,17 +5,17 @@ import 'package:bikesafe_mobile/widgets/normal_text.dart';
 import 'package:bikesafe_mobile/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  static String routeName = "LoginScreen";
+class CountSignIn extends StatefulWidget {
+  static String routeName = "CountSignIn";
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CountSignInState createState() => _CountSignInState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CountSignInState extends State<CountSignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context: context, title: "Login"),
+      appBar: buildAppBar(context: context, title: "Sign In"),
       body: Center(
           child: Container(
         width: MediaQuery.of(context).size.width * 0.7,
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TitleText("Iniciar sesión"),
-            NormalText("Ingresa tus datos xd"),
+            NormalText("Ingresa tus datos."),
             EnhancedText(
               null,
               "Email",
