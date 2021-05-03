@@ -1,12 +1,11 @@
 import 'package:bikesafe_mobile/utilities/theme/color_scheme.dart';
 import 'package:bikesafe_mobile/widgets/app_bar.dart';
-import 'package:bikesafe_mobile/widgets/enhanced_text.dart';
 import 'package:bikesafe_mobile/widgets/generic_button.dart';
+import 'package:bikesafe_mobile/widgets/input_text.dart';
 import 'package:bikesafe_mobile/widgets/normal_text.dart';
 import 'package:bikesafe_mobile/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-import '../utilities/theme/color_scheme.dart';
 import '../utilities/theme/color_scheme.dart';
 
 class RouteCreateScreen extends StatefulWidget {
@@ -29,44 +28,17 @@ class _RouteCreateScreenState extends State<RouteCreateScreen> {
           children: [
             TitleText("Crear Ruta"),
             NormalText("Ingresa los siguientes datos"),
-            TextFormField(
-              maxLength: 20,
-              decoration: InputDecoration(
-                icon: Icon(Icons.gesture),
-                labelText: 'Nombre de la ruta',
-                labelStyle: TextStyle(
-                  color: DeepBlueColorScheme.gray,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: DeepBlueColorScheme.secondary),
-                ),
-              ),
+            InputText(
+              "Nombre de la ruta",
+              myIcon: Icon(Icons.gesture),
             ),
-            TextFormField(
-              maxLength: 20,
-              decoration: InputDecoration(
-                icon: Icon(Icons.place),
-                labelText: 'Origen',
-                labelStyle: TextStyle(
-                  color: DeepBlueColorScheme.gray,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: DeepBlueColorScheme.secondary),
-                ),
-              ),
+            InputText(
+              "Origen",
+              myIcon: Icon(Icons.place),
             ),
-            TextFormField(
-              maxLength: 20,
-              decoration: InputDecoration(
-                icon: Icon(Icons.place),
-                labelText: 'Destino',
-                labelStyle: TextStyle(
-                  color: DeepBlueColorScheme.gray,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: DeepBlueColorScheme.secondary),
-                ),
-              ),
+            InputText(
+              "Destino",
+              myIcon: Icon(Icons.place),
             ),
             ListTile(
                 title: Text('Ruta Pública'),

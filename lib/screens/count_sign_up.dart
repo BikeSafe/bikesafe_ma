@@ -5,25 +5,53 @@ import 'package:bikesafe_mobile/widgets/normal_text.dart';
 import 'package:bikesafe_mobile/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-class CountSignIn extends StatefulWidget {
-  static String routeName = "CountSignIn";
+class CountSignUp extends StatefulWidget {
+  static String routeName = "CountSignUp";
   @override
-  _CountSignInState createState() => _CountSignInState();
+  _CountSignUpState createState() => _CountSignUpState();
 }
 
-class _CountSignInState extends State<CountSignIn> {
+class _CountSignUpState extends State<CountSignUp> {
+  var userName = Row(
+    children: <Widget>[
+      new Flexible(child: EnhancedText(null, "Nombre")),
+      new Flexible(child: EnhancedText(null, "Apellido")),
+    ],
+  );
+
+  var userData = Row(
+    children: <Widget>[
+      new Flexible(
+          child: EnhancedText(
+        null,
+        "Cédula",
+        isNumber: true,
+        validator: EnhancedText.isValidOrderNumber,
+      )),
+      new Flexible(
+          child: EnhancedText(
+        null,
+        "Teléfono",
+        isNumber: true,
+        validator: EnhancedText.isValidPhone,
+      )),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context: context, title: "Ingresar"),
+      appBar: buildAppBar(context: context, title: "Registro"),
       body: Center(
           child: Container(
         width: MediaQuery.of(context).size.width * 0.7,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TitleText("Iniciar sesión"),
+            TitleText("Crear Cuenta"),
             NormalText("Ingresa tus datos."),
+            userName,
+            userData,
             EnhancedText(
               null,
               "Email",
@@ -35,10 +63,7 @@ class _CountSignInState extends State<CountSignIn> {
               "Password",
               isPassword: true,
             ),
-            GenericButton("Ingresar", onPressed: () {
-              Navigator.of(context);
-            }),
-            GenericButton("Crear cuenta", onPressed: () {
+            GenericButton("Crear Cuenta", onPressed: () {
               Navigator.of(context);
             }),
           ],
