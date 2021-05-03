@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 
 import '../utilities/theme/color_scheme.dart';
 
-class RouteCreateScreen extends StatefulWidget {
+class RouteCreate extends StatefulWidget {
   static String routeName = "LoginScreen";
   @override
-  _RouteCreateScreenState createState() => _RouteCreateScreenState();
+  _RouteCreateState createState() => _RouteCreateState();
 }
 
-class _RouteCreateScreenState extends State<RouteCreateScreen> {
+class _RouteCreateState extends State<RouteCreate> {
   bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
