@@ -1,3 +1,4 @@
+import 'package:bikesafe_mobile/controllers/account.dart';
 import 'package:bikesafe_mobile/screens/count_sign_in.dart';
 import 'package:bikesafe_mobile/screens/count_user_data.dart';
 import 'package:bikesafe_mobile/screens/route_create.dart';
@@ -14,8 +15,10 @@ class CountProfile extends StatefulWidget {
 
 class _CountProfileState extends State<CountProfile> {
   bool isSwitched = false;
+  AccountController accountController;
   @override
   Widget build(BuildContext context) {
+    accountController = AccountController.of(context);
     return Scaffold(
       appBar: buildAppBar(context: context, title: "Perfil"),
       body: Center(
@@ -28,28 +31,29 @@ class _CountProfileState extends State<CountProfile> {
               rad: 80,
             ),
             ProfileMenu(
-              text: "Cuenta",
-              myIcon: Icon(Icons.person),
-              press: (){
-                Navigator.of(context).pushNamed(CountUser.routeName);
-              }
-            ),
+                text: "Cuenta",
+                myIcon: Icon(Icons.person),
+                press: () {
+                  Navigator.of(context).pushNamed(CountUser.routeName);
+                }),
             ProfileMenu(
               text: "Transporte",
               myIcon: Icon(Icons.pedal_bike),
             ),
             ProfileMenu(
-              text: "Rutas",
-              myIcon: Icon(Icons.alt_route),
-              press: (){
-                Navigator.of(context).pushNamed(RouteCreate.routeName);
-              }
-            ),
+                text: "Rutas",
+                myIcon: Icon(Icons.alt_route),
+                press: () {
+                  Navigator.of(context).pushNamed(RouteCreate.routeName);
+                }),
             ProfileMenu(
               text: "Cerrar Sesión",
               myIcon: Icon(Icons.logout),
-              press: (){
-                Navigator.of(context).pushReplacementNamed(CountSignIn.routeName);
+              press: () {
+                accountController.doSignOut().then((value) => {
+                      Navigator.of(context)
+                          .pushReplacementNamed(CountSignIn.routeName)
+                    });
               },
             ),
           ],

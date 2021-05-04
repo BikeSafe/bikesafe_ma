@@ -1,3 +1,4 @@
+import 'package:bikesafe_mobile/controllers/account.dart';
 import 'package:bikesafe_mobile/screens/count_modify_data.dart';
 import 'package:bikesafe_mobile/widgets/app_bar.dart';
 import 'package:bikesafe_mobile/widgets/normal_text.dart';
@@ -14,8 +15,10 @@ class CountUser extends StatefulWidget {
 // ! To complete
 class _CountUserState extends State<CountUser> {
   bool isSwitched = false;
+  AccountController accountController;
   @override
   Widget build(BuildContext context) {
+    accountController = AccountController.of(context);
     return Scaffold(
       appBar: buildAppBar(context: context, title: "Perfil"),
       body: Center(
@@ -27,10 +30,10 @@ class _CountUserState extends State<CountUser> {
             ProfilePic(
               rad: 80,
             ),
-            NormalText("Nombre: Pepito"),
-            NormalText("Apellido: Alcachofa"),
-            NormalText("Cédula: 12345678"),
-            NormalText("Teléfono: 93746792924"),
+            NormalText("Nombre: ${accountController.currentUser.firstName}"),
+            NormalText("Apellido: ${accountController.currentUser.lastName}"),
+            NormalText("Edad: ${accountController.currentUser.age}"),
+            NormalText("Email: ${accountController.currentUser.email}"),
             ProfileMenu(
               text: "Editar Datos",
               myIcon: Icon(Icons.edit),

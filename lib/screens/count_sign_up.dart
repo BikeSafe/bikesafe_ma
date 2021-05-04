@@ -1,3 +1,5 @@
+import 'package:bikesafe_mobile/models/register.dart';
+import 'package:bikesafe_mobile/repositories/account.dart';
 import 'package:bikesafe_mobile/widgets/app_bar.dart';
 import 'package:bikesafe_mobile/widgets/enhanced_text.dart';
 import 'package:bikesafe_mobile/widgets/generic_button.dart';
@@ -12,32 +14,13 @@ class CountSignUp extends StatefulWidget {
 }
 
 class _CountSignUpState extends State<CountSignUp> {
-  var userName = Row(
-    children: <Widget>[
-      new Flexible(child: EnhancedText(null, "Nombre")),
-      new Flexible(child: EnhancedText(null, "Apellido")),
-    ],
-  );
-
-  var userData = Row(
-    children: <Widget>[
-      new Flexible(
-          child: EnhancedText(
-        null,
-        "Cédula",
-        isNumber: true,
-        validator: EnhancedText.isValidOrderNumber,
-      )),
-      new Flexible(
-          child: EnhancedText(
-        null,
-        "Teléfono",
-        isNumber: true,
-        validator: EnhancedText.isValidPhone,
-      )),
-    ],
-  );
-
+  final _formKey = GlobalKey<FormState>();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,30 +28,72 @@ class _CountSignUpState extends State<CountSignUp> {
       body: Center(
           child: Container(
         width: MediaQuery.of(context).size.width * 0.7,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TitleText("Crear Cuenta"),
-            NormalText("Ingresa tus datos."),
-            userName,
-            userData,
-            EnhancedText(
-              null,
-              "Email",
-              isEmail: true,
-              validator: EnhancedText.isValidEmail,
-            ),
-            EnhancedText(
-              null,
-              "Password",
-              isPassword: true,
-            ),
-            GenericButton("Crear Cuenta", onPressed: () {
-              Navigator.of(context);
-            }),
-          ],
-        ),
+        child: buildBody(),
       )),
     );
+  }
+
+  Widget buildBody() {
+    if (loading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return SingleChildScrollView(
+        child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TitleText("Crear Cuenta"),
+                NormalText("Ingresa tus datos."),
+                EnhancedText(
+                  null,
+                  "Nombre",
+                  controller: _firstNameController,
+                ),
+                EnhancedText(
+                  null,
+                  "Apellido",
+                  controller: _lastNameController,
+                ),
+                EnhancedText(
+                  null,
+                  "Edad",
+                  controller: _ageController,
+                ),
+                EnhancedText(
+                  null,
+                  "Email",
+                  controller: _emailController,
+                  isEmail: true,
+                  validator: EnhancedText.isValidEmail,
+                ),
+                EnhancedText(
+                  null,
+                  "Password",
+                  controller: _passwordController,
+                  isPassword: true,
+                ),
+                GenericButton("Crear Cuenta", onPressed: () async {
+                  setState(() {
+                    loading = true;
+                  });
+                  try {
+                    String firstName = _firstNameController.text;
+                    String lastName = _lastNameController.text;
+                    int age = int.parse(_ageController.text);
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
+                    await AccountRepository.register(new Register(
+                        firstName, lastName, age, email, password));
+                    Navigator.of(context).pop();
+                  } catch (error) {
+                    print(error.toString());
+                  }
+                  setState(() {
+                    loading = false;
+                  });
+                }),
+              ],
+            )));
   }
 }
