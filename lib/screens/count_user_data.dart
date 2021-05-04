@@ -1,3 +1,4 @@
+import 'package:bikesafe_mobile/screens/count_modify_data.dart';
 import 'package:bikesafe_mobile/widgets/app_bar.dart';
 import 'package:bikesafe_mobile/widgets/normal_text.dart';
 import 'package:bikesafe_mobile/widgets/profile_pic.dart';
@@ -5,7 +6,7 @@ import 'package:bikesafe_mobile/widgets/profile_menu.dart';
 import 'package:flutter/material.dart';
 
 class CountUser extends StatefulWidget {
-  static String routeName = "LoginScreen";
+  static String routeName = "CountUser";
   @override
   _CountUserState createState() => _CountUserState();
 }
@@ -33,6 +34,9 @@ class _CountUserState extends State<CountUser> {
             ProfileMenu(
               text: "Editar Datos",
               myIcon: Icon(Icons.edit),
+              press: (){
+                Navigator.of(context).pushNamed(CountModifyData.routeName);
+              },
             )
           ],
         ),

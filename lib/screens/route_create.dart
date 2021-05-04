@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import '../utilities/theme/color_scheme.dart';
 
 class RouteCreate extends StatefulWidget {
-  static String routeName = "LoginScreen";
+  static String routeName = "RouteCreate";
   @override
   _RouteCreateState createState() => _RouteCreateState();
 }
