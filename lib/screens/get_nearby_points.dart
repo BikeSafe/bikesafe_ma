@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-class HomePage extends StatefulWidget {
+class NearbyPoints extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _NearbyPointsState createState() => _NearbyPointsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _NearbyPointsState extends State<NearbyPoints> {
   Position _currentPosition;
 
   @override
@@ -32,9 +32,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   _showLocation() async {
-    Position _p = await _determinePosition();
+    Position p = await _determinePosition();
     setState(() {
-      _currentPosition = _p;
+      _currentPosition = p;
     });
   }
 
