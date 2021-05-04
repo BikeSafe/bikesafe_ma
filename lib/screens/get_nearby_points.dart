@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class NearbyPoints extends StatefulWidget {
   @override
@@ -36,6 +38,9 @@ class _NearbyPointsState extends State<NearbyPoints> {
     setState(() {
       _currentPosition = p;
     });
+    //current arguments are hardcoded but will be retrieved from _currentPosition soon
+    List<dynamic> l = await fetchPoints("80", "80", "100");
+    print(l);
   }
 
   _hideLocation() {
@@ -83,5 +88,23 @@ class _NearbyPointsState extends State<NearbyPoints> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  //Future<Map<String, dynamic>>
+  Future<List<dynamic>> fetchPoints(lat, lng, radius) async {
+    Map<String, dynamic> m = {"lat": lat, "lng": lng, "radius": radius};
+    final response = await http
+        .get(Uri.http('192.168.43.147:4000', 'api/interest_point', m));
+    //URL should be the network facing ip of serving computer
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      print(response.body.runtimeType);
+      return jsonDecode(response.body);
+    } else {
+      print(response.statusCode);
+      print(response.body);
+      return [];
+    }
   }
 }
